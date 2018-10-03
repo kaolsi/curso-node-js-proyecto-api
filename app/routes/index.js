@@ -1,22 +1,15 @@
 var express = require('express') // llamamos a Express
 var router = express.Router()
 
+const cervezasRouter = require('./cervezas')
+const cursosRouter = require('./cursos')
+
 // establecemos nuestra primera ruta, mediante get.
 router.get('/', (req, res) => {
   res.json({ mensaje: '¡Bienvenido a nuestra API!' })
 })
 
-/*  ---------------------------RUTAS-------------------- */
-router.get('/cervezas', (req, res) => {
-  res.json({ mensaje: '¡A beber cerveza!' })
-})
-
-router.post('/cervezas', (req, res) => {
-  res.json({ mensaje: 'Cerveza  añadida' })
-})
-
-router.delete('/cervezas', (req, res) => {
-  res.json({ mensaje: 'Cerveza  borrada' })
-})
+router.use('/cervezas', cervezasRouter)
+router.use('/cursos', cursosRouter)
 
 module.exports = router
