@@ -1,6 +1,9 @@
 var express = require('express') // llamamos a Express
 const app = express()
 
+require('./db')
+// require('./addCerveza')
+
 // ENRUTADOR:
 const router = require('./routes')
 
