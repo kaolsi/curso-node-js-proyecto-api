@@ -20,15 +20,15 @@ const show = (req, res) => {
   // api/cervezas/:id
   const id = req.params.id
   // En bd el id es _id
-  /* Cervezas.findOne({ _id: id }, (error, cerveza) => {
-    if(ObjectId.isValid(id)){
-        return res.status(404).send({})
+  Cervezas.findOne({ _id: id }, (error, cerveza) => {
+    if (ObjectId.isValid(id)) {
+      return res.status(404).send({})
     }
     if (error) {
       res.send({ error })
     }
-  }) */
-  Cervezas.findById(id, (error, cerveza) => {
+  })
+  /* Cervezas.findById(id, (error, cerveza) => {
     if (error) res.send({ error })
     if (cerveza) {
       res.send(cerveza)
@@ -38,7 +38,7 @@ const show = (req, res) => {
     // if (error) res.send({ error })
     // if (!cerveza) return res.status(404).send({})
     // else res.send(cerveza)
-  })
+  }) */
 
   // res.send({ mensaje: `Buscada la cerveza que contiene ${id}` })
 }
