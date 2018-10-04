@@ -17,6 +17,7 @@ mongoose.modelSchemas = {}
 const Cervezas = require('../app/models/Cervezas')
 const cervezas = require('../data/cervezas.json')
 
+// MUY IMPORTANTE YA QUE EN BD NO TENEMOS ID
 // añadimos _id para poder testear con _id el GET /api/cervezas/id o DELETE api/cervezas/id
 cervezas.forEach(cerveza => (cerveza._id = new ObjectID()))
 
@@ -188,4 +189,3 @@ describe('Recurso cervezas', () => {
     })
   })
 })
-

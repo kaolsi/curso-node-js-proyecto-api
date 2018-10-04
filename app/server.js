@@ -16,5 +16,11 @@ app.get('/', (req, res) => {
 })
 
 // iniciamos nuestro servidor
-app.listen(port)
+var server = app.listen(port)
 console.log('API listening to port ' + port)
+
+module.exports = server
+/* var server = app.listen(port, function () {
+  var host = server.address().address
+  var port = server.address().port
+}) */
