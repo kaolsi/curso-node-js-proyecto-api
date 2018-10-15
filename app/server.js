@@ -8,6 +8,10 @@ const app = express()
 const router = require('./routes')
 
 const bodyParser = require('body-parser')
+const morgan = require('morgan')
+const cors = require('cors')
+app.use(morgan('combined'))
+app.use(cors())
 
 require('./db')
 
