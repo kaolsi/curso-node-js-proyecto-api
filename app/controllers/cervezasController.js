@@ -1,9 +1,24 @@
 const Cervezas = require('../models/Cervezas')
 const { ObjectId } = require('mongodb')
 
+/* POST SEARCH CON INDICE TIPO TEXTO (BODY-PARSER) */
 const search = (req, res) => {
   // api/cervezas/search?id=
   const q = req.query.q
+  Cervezas.find({ $text: { $search: q } }, (error, cervezas) => {
+    if (error) {
+      return res.json(500, {
+        message: 'Error en la búsqueda'
+      })
+    }
+    if (!cervezas.length) {
+      return res.json(404, {
+        message: 'No se han encontrado cervezas'
+      })
+    } else {
+      return res.json(cervezas)
+    }
+  })
   res.send({ mensaje: `Buscada la cerveza que contiene${q}` })
 }
 
@@ -60,9 +75,25 @@ const update = (req, res) => {
   res.send({ mensaje: `Actualizada la cerveza` })
 }
 
+/* POST REMOVE (BODY-PARSER) */
 const remove = (req, res) => {
   const id = req.params.id
-  res.send({ mensaje: `Borrada la cerveza que contiene ${id}` })
+  Cervezas.findOneAndDelete({ _id: id }, (error, cerveza) => {
+    if (ObjectId.isValid(id)) {
+      return res.status(404).send({})
+    }
+    if (error) {
+      return res.json(500, {
+        message: 'Cerveza no encontrada'
+      })
+    }
+    if (!cerveza) {
+      return res.json(404, {
+        message: 'Cerveza no encontrada'
+      })
+    }
+    res.send({ mensaje: `Borrada la cerveza que contiene ${id}` })
+  })
 }
 
 const cervezasController = {
