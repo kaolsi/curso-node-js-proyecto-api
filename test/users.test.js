@@ -28,6 +28,7 @@ describe('Usuarios', () => {
         .send({ email, password })
         .expect(201)
         .expect(res => {
+          expect(res.headers['x-auth']).to.exist
           expect(res.body._id).to.exist
           expect(res.body.email).to.satisfy(validator.isEmail)
         })
@@ -44,6 +45,31 @@ describe('Usuarios', () => {
             .catch(e => done(e))
         })
     })
+    /* it('Debería crear un nuevo usuario', done => {
+      const email = 'curso@curso.com'
+      const password = 'P@ssw0rd'
+
+      request(app)
+        .post('/api/users')
+        .send({ email, password })
+        .expect(201)
+        .expect(res => {
+          expect(res.body._id).to.exist
+          expect(res.body.email).to.satisfy(validator.isEmail)
+        })
+        .end(err => {
+          if (err) {
+            return done(err)
+          }
+
+          User.findOne({ email })
+            .then(user => {
+              expect(user).to.exist
+              done()
+            })
+            .catch(e => done(e))
+        })
+    }) */
 
     it('Debería dar errores de validación si el email es inválido', done => {
       request(app)
